@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="codeforces," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Educational Codeforces Round 37 (Rated for Div. 2) B题题意杀。 E题就是BZOJ1098，F题大概类似于BZOJ3211">
+<meta name="keywords" content="codeforces">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeforces920-Edu37">
+<meta property="og:url" content="http://yoursite.com/2018/09/22/codeforces920-Edu37/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Educational Codeforces Round 37 (Rated for Div. 2) B题题意杀。 E题就是BZOJ1098，F题大概类似于BZOJ3211">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-06T04:06:19.015Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="codeforces920-Edu37">
+<meta name="twitter:description" content="Educational Codeforces Round 37 (Rated for Div. 2) B题题意杀。 E题就是BZOJ1098，F题大概类似于BZOJ3211">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/22/codeforces920-Edu37/"/>
+
+
+
+
+
+  <title>codeforces920-Edu37 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/22/codeforces920-Edu37/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">codeforces920-Edu37</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-22T17:35:59+08:00">
+                2018-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://codeforces.com/contest/920" target="_blank" rel="noopener">Educational Codeforces Round 37 (Rated for Div. 2)</a></p>
+<p>B题题意杀。</p>
+<p>E题就是BZOJ1098，F题大概类似于BZOJ3211</p>
+<a id="more"></a>
+<h4 id="A-Water-The-Garden"><a href="#A-Water-The-Garden" class="headerlink" title="A. Water The Garden"></a>A. Water The Garden</h4><p>​    得到左边和右边哪边浇水，再判断一下</p>
+<h4 id="B-Tea-Queue"><a href="#B-Tea-Queue" class="headerlink" title="B. Tea Queue"></a>B. Tea Queue</h4><p>​    模拟，细节见代码。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> l[<span class="number">1005</span>],r[<span class="number">1005</span>];</span><br><span class="line"><span class="keyword">int</span> ans[<span class="number">1005</span>];</span><br><span class="line"><span class="keyword">int</span> n,q[<span class="number">1005</span>],front,rear;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	front=rear=<span class="number">0</span>;</span><br><span class="line">	n = read();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		l[i]=read(),r[i]=read();</span><br><span class="line">	&#125;</span><br><span class="line">	mem(ans,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> Time=<span class="number">1</span>,j=<span class="number">1</span>;Time&lt;=<span class="number">5000</span>;Time++)&#123;</span><br><span class="line">		<span class="keyword">while</span>(j&lt;=n&amp;&amp;l[j]==Time) q[rear++] = j,j++;</span><br><span class="line">		<span class="keyword">if</span>(front&lt;rear) ans[q[front++]] = Time; <span class="comment">//先判断！</span></span><br><span class="line">		<span class="keyword">while</span>(front&lt;rear &amp;&amp; r[q[front]] &lt;= Time) front++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>,ans[i]);</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> T = read();</span><br><span class="line">	<span class="keyword">while</span>(T--) solve();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="C-Swap-Adjacent-Elements"><a href="#C-Swap-Adjacent-Elements" class="headerlink" title="C. Swap Adjacent Elements"></a>C. Swap Adjacent Elements</h4><p>​    类似A题目，得到每个数字最左到多少，最右到多少，判断是否可以回到应该的额位置。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 200050</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> M -1</span></span><br><span class="line"><span class="keyword">int</span> L[N],R[N],a[N],n,f[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	n = read();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) a[i] = read();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) L[a[i]]=R[a[i]]=i;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> x;</span><br><span class="line">		x=gc();</span><br><span class="line">		<span class="keyword">while</span>(x!=<span class="string">'1'</span>&amp;&amp;x!=<span class="string">'0'</span>)x=gc();</span><br><span class="line">		<span class="keyword">if</span>(x==<span class="string">'1'</span>) f[i]=<span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	L[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(f[i])</span><br><span class="line">			L[a[i+<span class="number">1</span>]] = L[a[i]];</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			L[a[i+<span class="number">1</span>]] = i+<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	R[n] = n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=n<span class="number">-1</span>;i&gt;=<span class="number">1</span>;i--)&#123;</span><br><span class="line">		<span class="keyword">if</span>(f[i])</span><br><span class="line">			R[a[i]] = R[a[i+<span class="number">1</span>]];</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			R[a[i]] = i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">if</span>(!(L[i]&lt;=i&amp;&amp;i&lt;=R[i])) flag = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span>(flag)</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"YES"</span>); <span class="keyword">else</span></span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"NO"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="D-Tanks"><a href="#D-Tanks" class="headerlink" title="D. Tanks"></a>D. Tanks</h4><p>​    一个类似贪心的做法</p>
+<p>​    答案可行，也就是可以找出一些$a[i]$，使得 它们和对k取模与V对k取模的值是相等的，并且$\sum a[i]$ &gt;= V</p>
+<p>​    这样我们可以用背包来（因为每一个数最多只能用一次）</p>
+<p>​    同时计算出是哪些加起来，讨论一下一些空的情况即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//代码改自D题第一个提交</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 5005</span></span><br><span class="line"><span class="keyword">int</span> a[N],n,k,v,dp[N][N],pre[N][N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	n = read() ,k = read(),v = read();</span><br><span class="line">	rep(i,<span class="number">1</span>,n+<span class="number">1</span>) a[i]=read();</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	rep(i,<span class="number">1</span>,n+<span class="number">1</span>)sum+=a[i];</span><br><span class="line">	<span class="keyword">if</span>(sum&lt;v)&#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"NO"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	dp[<span class="number">0</span>][<span class="number">0</span>]=<span class="literal">true</span>;</span><br><span class="line">	rep(i,<span class="number">1</span>,n+<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">int</span> x = a[i]%k;</span><br><span class="line">		rep(j,<span class="number">0</span>,k)&#123;</span><br><span class="line">			<span class="keyword">if</span>(!dp[i<span class="number">-1</span>][j]) <span class="keyword">continue</span>;</span><br><span class="line">			dp[i][j]=<span class="literal">true</span>;</span><br><span class="line">			pre[i][j] = <span class="literal">false</span>;</span><br><span class="line">			</span><br><span class="line">			dp[i][(j+x)%k] = <span class="literal">true</span>;</span><br><span class="line">			pre[i][(j+x)%k] = <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(!dp[n][v%k])&#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"NO"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; V[<span class="number">2</span>];</span><br><span class="line">	<span class="keyword">int</span> _v = v%k;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=n;i&gt;=<span class="number">1</span>;i--)&#123;</span><br><span class="line">		<span class="keyword">int</span> x=a[i]%k;</span><br><span class="line">		<span class="keyword">if</span>(pre[i][_v])&#123;</span><br><span class="line">			V[<span class="number">1</span>].pb(i);</span><br><span class="line">			_v = (_v - x + k) % k;</span><br><span class="line">		&#125; <span class="keyword">else</span></span><br><span class="line">			V[<span class="number">0</span>].pb(i);</span><br><span class="line">	&#125;</span><br><span class="line">	sort(V[<span class="number">0</span>].begin(),V[<span class="number">0</span>].end());</span><br><span class="line">	sort(V[<span class="number">1</span>].begin(),V[<span class="number">1</span>].end());</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"YES"</span>);</span><br><span class="line">	<span class="keyword">if</span>(!V[<span class="number">0</span>].empty())</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;V[<span class="number">0</span>].size();i++)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>,<span class="number">100000</span>,V[<span class="number">0</span>][i],V[<span class="number">0</span>][<span class="number">0</span>]);</span><br><span class="line">	<span class="keyword">if</span>(!V[<span class="number">1</span>].empty())</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;V[<span class="number">1</span>].size();i++)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>,<span class="number">100000</span>,V[<span class="number">1</span>][i],V[<span class="number">1</span>][<span class="number">0</span>]);</span><br><span class="line">	sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;V[<span class="number">1</span>].size();i++) sum+=a[V[<span class="number">1</span>][i]];</span><br><span class="line">	<span class="keyword">int</span> p0,p1;</span><br><span class="line">	<span class="keyword">if</span>(V[<span class="number">0</span>].empty()) p0 = V[<span class="number">1</span>][<span class="number">1</span>],p1 = V[<span class="number">1</span>][<span class="number">0</span>]; <span class="keyword">else</span></span><br><span class="line">	<span class="keyword">if</span>(V[<span class="number">1</span>].empty()) p0 = V[<span class="number">0</span>][<span class="number">0</span>],p1 = V[<span class="number">0</span>][<span class="number">1</span>]; <span class="keyword">else</span></span><br><span class="line">					 p0 = V[<span class="number">0</span>][<span class="number">0</span>],p1 = V[<span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">if</span>(sum &gt; v)</span><br><span class="line">		<span class="keyword">if</span>((sum-v)/k)<span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>,(sum-v)/k,p1,p0);</span><br><span class="line">	<span class="keyword">if</span>(sum &lt; v)</span><br><span class="line">		<span class="keyword">if</span>((v-sum)/k)<span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>,(v-sum)/k,p0,p1);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="E-Connected-Components"><a href="#E-Connected-Components" class="headerlink" title="E. Connected Components?"></a>E. Connected Components?</h4><p>​    详见<a href="http://www.lydsy.com/JudgeOnline/problem.php?id=1098" target="_blank" rel="noopener">http://www.lydsy.com/JudgeOnline/problem.php?id=1098</a></p>
+<h4 id="F-SUM-and-REPLACE"><a href="#F-SUM-and-REPLACE" class="headerlink" title="F. SUM and REPLACE"></a>F. SUM and REPLACE</h4><p>​    注意到这个D(i)没有几下就会变成2或者1的。</p>
+<p>​    所以直接暴力对不是2和1的进行求值，用树状数组得到区间和，用一个并查集来维护链表。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 300099</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> M 300099</span></span><br><span class="line">ll _D[<span class="number">1000009</span>];</span><br><span class="line"><span class="function">ll <span class="title">D</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(_D[x]!=<span class="number">-1</span>) <span class="keyword">return</span> _D[x];</span><br><span class="line">	_D[x] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i*i&lt;=x;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(x%i) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">if</span>(i*i==x) _D[x]++; <span class="keyword">else</span> _D[x]+=<span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> _D[x];</span><br><span class="line">&#125;</span><br><span class="line">ll n,m,a[N];</span><br><span class="line">ll fa[N];</span><br><span class="line">ll c[N];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">find</span><span class="params">(ll x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (x==fa[x])?x:fa[x]=find(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(ll x,ll v)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(;x&lt;=n;x+=(x&amp;-x))c[x]+=v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">get</span><span class="params">(ll x)</span></span>&#123;</span><br><span class="line">	ll ans = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(;x;x-=(x&amp;-x))ans+=c[x];</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	mem(_D,<span class="number">-1</span>);</span><br><span class="line">	n = read(),m = read();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) a[i]=read();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n+<span class="number">1</span>;i++) <span class="keyword">if</span>(a[i]==<span class="number">1</span>||a[i]==<span class="number">2</span>) fa[i]=i+<span class="number">1</span>; <span class="keyword">else</span> fa[i] = i;</span><br><span class="line">	mem(c,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)add(i,a[i]);</span><br><span class="line">	<span class="keyword">while</span>(m--)&#123;</span><br><span class="line">		<span class="keyword">int</span> t = read(),l = read(),r = read();</span><br><span class="line">		<span class="keyword">if</span>(t==<span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> i = fa[l];</span><br><span class="line">			<span class="keyword">while</span>(i&lt;=r)&#123;</span><br><span class="line">				add(i,D(a[i])-a[i]);</span><br><span class="line">				a[i] = D(a[i]);</span><br><span class="line">				<span class="keyword">if</span>(a[i] == <span class="number">2</span> || a[i] == <span class="number">1</span>) fa[i] = i+<span class="number">1</span>;</span><br><span class="line">				i = find(i+<span class="number">1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%I64d\n"</span>,get(r) - get(l<span class="number">-1</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="G-List-Of-Integers"><a href="#G-List-Of-Integers" class="headerlink" title="G. List Of Integers"></a>G. List Of Integers</h4><p>​    先知道一个简单的问题，已知n,m求1~n中与m互质的数有多少。</p>
+<p>​    我们可以把n分解质因数然后容斥。</p>
+<p>​    注意到$2<em>3</em>5<em>7</em>11<em>13</em>17*19$已经大于1e6了。</p>
+<p>​    计算的复杂度是$O(sqrt(n))$预处理 + $O(256)$计算</p>
+<p>​    对于每一个询问，我们考虑二分一个答案，注意到奇数和偶数互质，所以二分的区间是$[x+1,1e7]$</p>
+<p>​    然后我们计算是否可行，再相应调整，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> f[<span class="number">233</span>],num;</span><br><span class="line"><span class="function">ll <span class="title">calc</span><span class="params">(ll n)</span></span>&#123;</span><br><span class="line">	ll ans = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(<span class="number">1</span>&lt;&lt;num);i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">		ll t = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;num;j++)&#123;</span><br><span class="line">			<span class="keyword">if</span>((i&gt;&gt;j)&amp;<span class="number">1</span>)&#123;</span><br><span class="line">				t = t * f[j];</span><br><span class="line">				cnt++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cnt&amp;<span class="number">1</span>)</span><br><span class="line">			ans -= n/t;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			ans += n/t;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;<span class="comment">//求与n互质的数有多少 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ll x = read(),p = read(),k = read();</span><br><span class="line">	num = <span class="number">0</span>;</span><br><span class="line">	ll i;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">2</span>;i*i&lt;=p;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(p%i) <span class="keyword">continue</span>;</span><br><span class="line">		f[num++] = i;</span><br><span class="line">		<span class="keyword">while</span>(p%i==<span class="number">0</span>) p/=i;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">if</span>(p!=<span class="number">1</span>) f[num++] = p;</span><br><span class="line">	ll pre = calc(x);</span><br><span class="line">	ll l = x+<span class="number">1</span>,r = <span class="number">1e9</span>,ans=<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span>(l&lt;=r)&#123;</span><br><span class="line">		ll mid = (l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(calc(mid) - pre &gt;= k)&#123;</span><br><span class="line">			ans = mid;</span><br><span class="line">			r = mid - <span class="number">1</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span></span><br><span class="line">			l = mid + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%I64d\n"</span>,ans);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> T = read();</span><br><span class="line">	<span class="keyword">while</span>(T--) solve();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>​    这场没人打呀。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/codeforces/" rel="tag"># codeforces</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/22/codeforces914/" rel="next" title="codeforces915">
+                <i class="fa fa-chevron-left"></i> codeforces915
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/22/codeforces915-Edu36/" rel="prev" title="codeforces915-Edu36">
+                codeforces915-Edu36 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/zhouzhendong/" title="ZZD___Orz" target="_blank">ZZD___Orz</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/chunlvxiong/" title="CLJ___Orz" target="_blank">CLJ___Orz</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-Water-The-Garden"><span class="nav-number">1.</span> <span class="nav-text">A. Water The Garden</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-Tea-Queue"><span class="nav-number">2.</span> <span class="nav-text">B. Tea Queue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-Swap-Adjacent-Elements"><span class="nav-number">3.</span> <span class="nav-text">C. Swap Adjacent Elements</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#D-Tanks"><span class="nav-number">4.</span> <span class="nav-text">D. Tanks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#E-Connected-Components"><span class="nav-number">5.</span> <span class="nav-text">E. Connected Components?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#F-SUM-and-REPLACE"><span class="nav-number">6.</span> <span class="nav-text">F. SUM and REPLACE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G-List-Of-Integers"><span class="nav-number">7.</span> <span class="nav-text">G. List Of Integers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后记"><span class="nav-number">8.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

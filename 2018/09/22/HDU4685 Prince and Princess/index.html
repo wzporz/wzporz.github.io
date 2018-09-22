@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="二分图,HDU,强连通缩点," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="题意​    有n个王子和m个公主，每个王子都会喜欢若干个公主，也就是王子只跟自己喜欢的公主结婚公主就比较悲惨， 跟谁结婚都行。 ​    然后求对于每一个王子，可以和那个公主结婚，使得其余的匹配数不变。（输出所有可能的情况）">
+<meta name="keywords" content="二分图,HDU,强连通缩点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDU4685 Prince and Princess">
+<meta property="og:url" content="http://yoursite.com/2018/09/22/HDU4685 Prince and Princess/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题意​    有n个王子和m个公主，每个王子都会喜欢若干个公主，也就是王子只跟自己喜欢的公主结婚公主就比较悲惨， 跟谁结婚都行。 ​    然后求对于每一个王子，可以和那个公主结婚，使得其余的匹配数不变。（输出所有可能的情况）">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/09/22/HDU4685%20Prince%20and%20Princess/HDU4685%20Prince%20and%20Princess/TIM截图20180107224255.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/22/HDU4685%20Prince%20and%20Princess/HDU4685%20Prince%20and%20Princess/TIM截图20180107211419.png">
+<meta property="og:updated_time" content="2018-02-03T08:35:39.885Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HDU4685 Prince and Princess">
+<meta name="twitter:description" content="题意​    有n个王子和m个公主，每个王子都会喜欢若干个公主，也就是王子只跟自己喜欢的公主结婚公主就比较悲惨， 跟谁结婚都行。 ​    然后求对于每一个王子，可以和那个公主结婚，使得其余的匹配数不变。（输出所有可能的情况）">
+<meta name="twitter:image" content="http://yoursite.com/2018/09/22/HDU4685%20Prince%20and%20Princess/HDU4685%20Prince%20and%20Princess/TIM截图20180107224255.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/22/HDU4685 Prince and Princess/"/>
+
+
+
+
+
+  <title>HDU4685 Prince and Princess | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/22/HDU4685 Prince and Princess/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HDU4685 Prince and Princess</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-22T17:35:59+08:00">
+                2018-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h4><p>​    有n个王子和m个公主，每个王子都会喜欢若干个公主，也就是王子只跟自己喜欢的公主结婚公主就比较悲惨， 跟谁结婚都行。</p>
+<p>​    然后求对于每一个王子，可以和那个公主结婚，使得其余的匹配数不变。（输出所有可能的情况）</p>
+<a id="more"></a>
+<h4 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h4><p>​    第一步，对于这个二分图，我们求一遍最大匹配。比如这是样例：</p>
+<p><img src="HDU4685 Prince and Princess\TIM截图20180107224255.png" alt="A"></p>
+<p>对于样例而言，1显然可以和5，2和6，3和7，4和8，因为这样是满足条件的，剩下的情况还是最大匹配。</p>
+<p>当然，我们注意到1和6是可以连的，因为另一种可能的最大匹配是</p>
+<p><img src="HDU4685 Prince and Princess\TIM截图20180107211419.png" alt="TIM截图20180107211419"></p>
+<p>这样的。——绿色的边。</p>
+<p>​    那么什么情况下$i$可以和$j’$连呢？当且仅当对于$j’$</p>
+<p>​    1、本来两个就是匹配。可以。</p>
+<p>​    2、删除$j’$之后，j可以找到一条新的增广路（说明匹配数量可以不变）。</p>
+<p>​            为什么是j？——因为增广路不可能从别的地方找。</p>
+<p>​    而最后一步一定是空节点或者$i’$</p>
+<p>考虑完美匹配的情况：</p>
+<p>​    我们记得增广路是顺着未匹配边和匹配边找的。考虑对于匹配边建立反向边（正边依旧保留）。</p>
+<p>​    我们对图进行强连通分量缩点。</p>
+<p>​    那么如果对于节点$j’$和$i’$在同一个强连通分量里面。说明有环：</p>
+<p>​    那么只需要把增广路轮换一下，匹配边和非匹配边交换一下，又可以形成新的一种匹配。</p>
+<p>考虑没有完美匹配的情况：</p>
+<p>​    对于未匹配的，我们制造一个假点，让它变成完美匹配。这些假点向其它所有边连边。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt; </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> gc getchar</span></span><br><span class="line"><span class="keyword">namespace</span> IO&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> __buffsize = <span class="number">1000000</span>;<span class="keyword">char</span> __buff[__buffsize];<span class="keyword">char</span> *__buffS, *__buffT;</span><br><span class="line">	<span class="function"><span class="keyword">char</span> <span class="title">getch</span><span class="params">()</span></span>&#123;<span class="keyword">if</span> (__buffS == __buffT)&#123;__buffT = (__buffS = __buff) + fread(__buff,<span class="number">1</span>,__buffsize,<span class="built_in">stdin</span>);<span class="keyword">if</span> (__buffS == __buffT) <span class="keyword">return</span> EOF;&#125;<span class="keyword">return</span> *__buffS++;&#125;</span><br><span class="line">	<span class="meta">#<span class="meta-keyword">define</span> getch getchar</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">read</span><span class="params">()</span></span>&#123;<span class="keyword">int</span> T = <span class="number">0</span>,f = <span class="number">1</span>;<span class="keyword">char</span> c = getch();<span class="keyword">while</span> ((c&lt;<span class="string">'0'</span>||c&gt;<span class="string">'9'</span>)&amp;&amp;c!=<span class="string">'-'</span>) c=getch();<span class="keyword">if</span>(c==<span class="string">'-'</span>)f=<span class="number">-1</span>,c=getch();<span class="keyword">while</span> (c&gt;=<span class="string">'0'</span>&amp;&amp;c&lt;=<span class="string">'9'</span>)&#123;T=((T&lt;&lt;<span class="number">1</span>)+(T&lt;&lt;<span class="number">3</span>))+c<span class="number">-48</span>;c=getch();&#125;<span class="keyword">return</span> T*f;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;<span class="keyword">if</span>(x &lt; <span class="number">0</span>) <span class="built_in">putchar</span>(<span class="string">'0'</span>),x = -x;<span class="keyword">if</span> (x&gt;=<span class="number">10</span>) write(x / <span class="number">10</span>);<span class="built_in">putchar</span>((x % <span class="number">10</span>)+<span class="string">'0'</span>);&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">writeln</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;write(x);<span class="built_in">puts</span>(<span class="string">""</span>);&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 2005</span></span><br><span class="line"><span class="keyword">int</span> n,m,k,BW,link[N],_link[N],vis[N];</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> IO;</span><br><span class="line"><span class="keyword">int</span> s[N],Instack[N],DFN[N],low[N],top,Belong[N];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> to,nxt;</span><br><span class="line">	Edge()&#123;&#125;</span><br><span class="line">	Edge(<span class="keyword">int</span> to,<span class="keyword">int</span> nxt):to(to),nxt(nxt)&#123;&#125;</span><br><span class="line">&#125;edge[N*N];</span><br><span class="line"><span class="keyword">int</span> first[N],nume;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Addedge</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line"><span class="comment">//	printf("%d-&gt;%d\n",a,b);</span></span><br><span class="line">	edge[nume] = Edge(b,first[a]);</span><br><span class="line">	first[a] = nume++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> cnt,Time;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	Instack[u] = <span class="literal">true</span>;</span><br><span class="line">	s[++top] = u;</span><br><span class="line">	DFN[u]=low[u]=++Time;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> e=first[u];~e;e=edge[e].nxt)&#123;</span><br><span class="line">		<span class="keyword">int</span> v = edge[e].to;</span><br><span class="line">		<span class="keyword">if</span> (DFN[v] == <span class="number">-1</span>)&#123;</span><br><span class="line">			Tarjan(v);</span><br><span class="line">			low[u] = min(low[u],low[v]);</span><br><span class="line">		&#125; <span class="keyword">else</span></span><br><span class="line">		<span class="keyword">if</span> (Instack[v])</span><br><span class="line">			low[u] = min(low[u],low[v]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (DFN[u]==low[u])&#123;</span><br><span class="line">		cnt++;</span><br><span class="line">		<span class="keyword">while</span>(s[top]!= u)&#123;</span><br><span class="line">			Belong[s[top]] = cnt;</span><br><span class="line">			Instack[s[top]] = <span class="literal">false</span>;</span><br><span class="line">			top--;</span><br><span class="line">		&#125;</span><br><span class="line">		Belong[u] = cnt;</span><br><span class="line">		Instack[s[top]] = <span class="literal">false</span>;</span><br><span class="line">		top--;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> e=first[u];~e;e=edge[e].nxt)&#123;</span><br><span class="line">		<span class="keyword">int</span> v = edge[e].to - BW;</span><br><span class="line">		<span class="keyword">if</span> (vis[v]) <span class="keyword">continue</span>;</span><br><span class="line">		vis[v] = <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">if</span> (link[v]==<span class="number">-1</span> || find(link[v]))&#123;</span><br><span class="line">			link[v] = u;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">KM</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">memset</span>(link,<span class="number">-1</span>,<span class="keyword">sizeof</span>(link));</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(vis,<span class="literal">false</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">		<span class="keyword">if</span> (find(i)) res++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> tmp[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> Case)</span></span>&#123;</span><br><span class="line">	n = read(),m = read();</span><br><span class="line">	BW = n + m;</span><br><span class="line">	<span class="built_in">memset</span>(first,<span class="number">-1</span>,<span class="keyword">sizeof</span>(first));nume = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> p = read();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=p;j++)</span><br><span class="line">			Addedge(i,read() + BW);</span><br><span class="line">	&#125;</span><br><span class="line">	k = KM(n);</span><br><span class="line"><span class="comment">//	printf("k = %d\n",k);</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m-k;i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;j++) Addedge(n+i,j+BW);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n-k;j++) Addedge(i,m+j+BW);</span><br><span class="line">	<span class="keyword">int</span> QQQ = KM(n+m-k);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n+m-k;i++)&#123;</span><br><span class="line">		Addedge(i+BW,link[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">memset</span>(DFN,<span class="number">-1</span>,<span class="keyword">sizeof</span>(DFN));</span><br><span class="line">	Time = <span class="number">0</span>,cnt = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n+m-k;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span> (DFN[i] == <span class="number">-1</span>) Tarjan(i);</span><br><span class="line">		<span class="keyword">if</span> (DFN[i+BW] == <span class="number">-1</span>) Tarjan(i+BW);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Case #%d:\n"</span>,Case);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		tmp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> e = first[i];~e;e=edge[e].nxt)&#123;</span><br><span class="line">			<span class="keyword">int</span> v = edge[e].to;</span><br><span class="line">			<span class="keyword">if</span> (v - BW &gt; m) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span> (Belong[v] == Belong[i]) tmp[++tmp[<span class="number">0</span>]] = v - BW;</span><br><span class="line">		&#125;</span><br><span class="line">		sort(tmp+<span class="number">1</span>,tmp+<span class="number">1</span>+tmp[<span class="number">0</span>]);</span><br><span class="line">		write(tmp[<span class="number">0</span>]);</span><br><span class="line">		<span class="meta">#<span class="meta-keyword">define</span> pc putchar</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=tmp[<span class="number">0</span>];j++) pc(<span class="string">' '</span>),write(tmp[j]);</span><br><span class="line">		pc(<span class="string">'\n'</span>);</span><br><span class="line">		<span class="meta">#<span class="meta-keyword">undef</span> pc</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> T = read();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> Case=<span class="number">1</span>;Case&lt;=T;Case++)&#123;</span><br><span class="line">		solve(Case);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/二分图/" rel="tag"># 二分图</a>
+          
+            <a href="/tags/HDU/" rel="tag"># HDU</a>
+          
+            <a href="/tags/强连通缩点/" rel="tag"># 强连通缩点</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/22/codeforces976F Minimal k-covering/" rel="next" title="codeforces976F Minimal k-covering">
+                <i class="fa fa-chevron-left"></i> codeforces976F Minimal k-covering
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/22/HDU4372&&codeforces960G/" rel="prev" title="HDU4372&&codeforces960G">
+                HDU4372&&codeforces960G <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/zhouzhendong/" title="ZZD___Orz" target="_blank">ZZD___Orz</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/chunlvxiong/" title="CLJ___Orz" target="_blank">CLJ___Orz</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题意"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#做法"><span class="nav-number">2.</span> <span class="nav-text">做法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

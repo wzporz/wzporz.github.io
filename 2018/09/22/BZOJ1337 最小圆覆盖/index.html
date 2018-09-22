@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="计算几何,期望," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="原题戳这里 题意 给你n个点，求最小的半径的圆覆盖这n个点  吐槽​    这题只有1个数据点，而且n=10，所以直接puts就行了 12345#include&amp;lt;cstdio&amp;gt;using namespace std;int main()&amp;#123;    puts(&quot;48.770&quot;);&amp;#125; 下面是数据  10 24.4 57.4 71.7 99 85.4 78.6 70.6 3">
+<meta name="keywords" content="计算几何,期望">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BZOJ1337 最小圆覆盖">
+<meta property="og:url" content="http://yoursite.com/2018/09/22/BZOJ1337 最小圆覆盖/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="原题戳这里 题意 给你n个点，求最小的半径的圆覆盖这n个点  吐槽​    这题只有1个数据点，而且n=10，所以直接puts就行了 12345#include&amp;lt;cstdio&amp;gt;using namespace std;int main()&amp;#123;    puts(&quot;48.770&quot;);&amp;#125; 下面是数据  10 24.4 57.4 71.7 99 85.4 78.6 70.6 3">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-12T03:35:38.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BZOJ1337 最小圆覆盖">
+<meta name="twitter:description" content="原题戳这里 题意 给你n个点，求最小的半径的圆覆盖这n个点  吐槽​    这题只有1个数据点，而且n=10，所以直接puts就行了 12345#include&amp;lt;cstdio&amp;gt;using namespace std;int main()&amp;#123;    puts(&quot;48.770&quot;);&amp;#125; 下面是数据  10 24.4 57.4 71.7 99 85.4 78.6 70.6 3">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/22/BZOJ1337 最小圆覆盖/"/>
+
+
+
+
+
+  <title>BZOJ1337 最小圆覆盖 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/22/BZOJ1337 最小圆覆盖/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BZOJ1337 最小圆覆盖</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-22T17:35:59+08:00">
+                2018-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://www.lydsy.com/JudgeOnline/problem.php?id=1337" target="_blank" rel="noopener">原题戳这里</a></p>
+<h4 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h4><blockquote>
+<p>给你n个点，求最小的半径的圆覆盖这n个点</p>
+</blockquote>
+<h4 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h4><p>​    这题只有1个数据点，而且n=10，<del>所以直接puts就行了</del></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"48.770"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是数据</p>
+<blockquote>
+<p>10</p>
+<p>24.4 57.4</p>
+<p>71.7 99</p>
+<p>85.4 78.6</p>
+<p>70.6 39.2</p>
+<p>35.3 8.9</p>
+<p>14.8 77.6</p>
+<p>2.3 50</p>
+<p>14.1 84.9</p>
+<p>99.3 49.6</p>
+<p>47.8 43</p>
+</blockquote>
+<a id="more"></a>
+<p>好吧，这题貌似叫做随机增量法？？</p>
+<p>大概就是暴力枚举一个点，不行用两个点，还不行三个点，然后这样期望复杂度是$O(n)$的</p>
+<p>其实我就是来贴个计算几何模板的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; pii;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>,oo = inf;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pi 3.14159265358979323846</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IL inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RG register</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i,a,b) for(RG int i=(a);i&lt;(b);++i)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Rep(i,a,b) for(RG int i=(a);i&lt;=(b);++i)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Dep(i,a,b) for(RG int i=(a);i&gt;=(b);--i)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pc putchar</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> gc getchar</span></span><br><span class="line"><span class="function">IL ll <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">    RG ll x=<span class="number">0</span>;<span class="keyword">char</span> f=<span class="number">0</span>;RG <span class="keyword">char</span> c=gc();</span><br><span class="line">    <span class="keyword">for</span>(;!<span class="built_in">isdigit</span>(c);c=gc())f|=(c==<span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">for</span>(;<span class="built_in">isdigit</span>(c);c=gc())x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+(c^<span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> f?-x:x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">IL <span class="keyword">double</span> <span class="title">readdb</span><span class="params">()</span></span>&#123;</span><br><span class="line">    RG <span class="keyword">double</span> x=<span class="number">0</span>,p=<span class="number">0.1</span>;RG <span class="keyword">char</span> f=<span class="number">0</span>,c=gc();</span><br><span class="line">    <span class="keyword">for</span>(;!<span class="built_in">isdigit</span>(c);c=gc())f|=(c==<span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">for</span>(;<span class="built_in">isdigit</span>(c);c=gc())x=x*<span class="number">10</span>+(c^<span class="number">48</span>);</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="string">'.'</span>)<span class="keyword">for</span>(c=gc();<span class="built_in">isdigit</span>(c);c=gc(),p/=<span class="number">10</span>)x=x+(c^<span class="number">48</span>)*p;</span><br><span class="line">    <span class="keyword">return</span> f?-x:x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">IL <span class="keyword">void</span> <span class="title">write</span><span class="params">(ll x)</span></span>&#123;<span class="keyword">if</span>(x&lt;<span class="number">0</span>)x=-x,pc(<span class="string">'-'</span>);<span class="keyword">if</span>(x&gt;=<span class="number">10</span>)write(x/<span class="number">10</span>);pc(x%<span class="number">10</span>+<span class="string">'0'</span>);&#125;</span><br><span class="line"><span class="function">IL <span class="keyword">void</span> <span class="title">writeln</span><span class="params">(ll x)</span></span>&#123;write(x);<span class="built_in">puts</span>(<span class="string">""</span>);&#125;</span><br><span class="line"><span class="function">IL <span class="keyword">void</span> <span class="title">writeln</span><span class="params">(ll x,<span class="keyword">char</span> c,ll y)</span></span>&#123;write(x);pc(c);writeln(y);&#125;</span><br><span class="line"><span class="function">IL <span class="keyword">void</span> <span class="title">writeln</span><span class="params">(ll x,<span class="keyword">char</span> c,ll y,<span class="keyword">char</span> d,ll z)</span></span>&#123;write(x);pc(c);write(y);pc(d);writeln(z);&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> debug(x) printf(#x<span class="meta-string">" = %d\n"</span>,x);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rd() read()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rdb() readdb()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mem(x,v) memset(x,v,sizeof(x))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mp make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sqr(x) ((x)*(x))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lowbit(x) ((x)&amp;(-(x)))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fin(x) freopen(#x<span class="meta-string">".in"</span>,<span class="meta-string">"r"</span>,stdin)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fout(x) freopen(#x<span class="meta-string">".out"</span>,<span class="meta-string">"w"</span>,stdout)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> y1 ____y1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> hash __hash</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> union _union</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ramdom ((double)rand() / RAND_MAX)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> x first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> y second</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dcmp</span><span class="params">(<span class="keyword">double</span> x)</span></span>&#123;<span class="keyword">if</span>(<span class="built_in">fabs</span>(x) &lt; eps) <span class="keyword">return</span> <span class="number">0</span>;<span class="keyword">return</span> x&lt;<span class="number">0</span>?<span class="number">-1</span>:<span class="number">1</span>;&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span>&#123;</span></span><br><span class="line">	<span class="keyword">double</span> x,y;</span><br><span class="line">	Point(<span class="keyword">double</span> x=<span class="number">0</span>,<span class="keyword">double</span> y=<span class="number">0</span>):x(x),y(y)&#123;&#125;;</span><br><span class="line">	Point <span class="keyword">operator</span> + (<span class="keyword">const</span> Point &amp;a)<span class="keyword">const</span>&#123;<span class="keyword">return</span> Point(x+a.x,y+a.y);&#125;</span><br><span class="line">	Point <span class="keyword">operator</span> - (<span class="keyword">const</span> Point &amp;a)<span class="keyword">const</span>&#123;<span class="keyword">return</span> Point(x-a.x,y-a.y);&#125;</span><br><span class="line">	Point <span class="keyword">operator</span> * (<span class="keyword">double</span> a)&#123;<span class="keyword">return</span> Point(x*a,y*a);&#125;</span><br><span class="line">	Point <span class="keyword">operator</span> / (<span class="keyword">double</span> a)&#123;<span class="keyword">return</span> Point(x/a,y/a);&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">out</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"&#123;%.3lf,%.3lf&#125;"</span>,x,y);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;; </span><br><span class="line"><span class="keyword">typedef</span> Point Vector;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">cross</span><span class="params">(Point a,Point b)</span></span>&#123;<span class="keyword">return</span> a.x*b.y-b.x*a.y;&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">dot</span><span class="params">(Point a,Point b)</span></span>&#123;<span class="keyword">return</span> a.x*b.x+a.y*b.y;&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">dist</span><span class="params">(Point a,Point b)</span></span>&#123;<span class="keyword">return</span> <span class="built_in">sqrt</span>(sqr(a.x-b.x)+sqr(a.y-b.y));&#125;</span><br><span class="line"><span class="function">Point <span class="title">rotate</span><span class="params">(Vector a,<span class="keyword">double</span> rad)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> Point(a.x*<span class="built_in">cos</span>(rad)-a.y*<span class="built_in">sin</span>(rad),a.x*<span class="built_in">sin</span>(rad)+a.y*<span class="built_in">cos</span>(rad));</span><br><span class="line">&#125;<span class="comment">//向量绕原点旋转rad度 </span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Line</span>&#123;</span></span><br><span class="line">	Point x,y; </span><br><span class="line">	Line(Point x,Point y):x(x),y(y)&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">out</span><span class="params">()</span></span>&#123;</span><br><span class="line">		pc(<span class="string">'['</span>);x.out();y.out();pc(<span class="string">']'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> Line Segment;</span><br><span class="line"><span class="function">Point <span class="title">Line_jiao</span><span class="params">(Line a,Line b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> r1 = cross(a.x-b.x,b.y-b.x),r2 = cross(b.y-b.x,a.y-b.x);</span><br><span class="line">	<span class="keyword">return</span> a.x+(a.y-a.x)*r1/(r1+r2);</span><br><span class="line">&#125;<span class="comment">//给出两条直线，求它们的交点 </span></span><br><span class="line"><span class="function">Point <span class="title">center</span><span class="params">(Point A,Point B,Point C)</span></span>&#123;</span><br><span class="line">	Point p = (A+B) / <span class="number">2</span>;</span><br><span class="line">	Point q = (A+C) / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(dcmp(cross(p-C,A-C))==<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(dcmp(dist(A,B)+dist(B,C)-dist(A,C))==<span class="number">0</span>) <span class="keyword">return</span> (A+C)/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(dcmp(dist(A,B)+dist(A,B)-dist(B,C))==<span class="number">0</span>) <span class="keyword">return</span> (B+C)/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(dcmp(dist(A,C)+dist(B,C)-dist(A,B))==<span class="number">0</span>) <span class="keyword">return</span> (A+B)/<span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	Point _p=p+Point(-(p-A).y,(p-A).x);</span><br><span class="line">	Point _q=q+Point(-(q-A).y,(q-A).x);</span><br><span class="line">	Point answ = Line_jiao(Line(p,_p),Line(q,_q));</span><br><span class="line">	<span class="keyword">return</span> answ;</span><br><span class="line">&#125;<span class="comment">//给定三个点，求一个点满足这个点到三个点的距离的最大值最小 </span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e5</span>+<span class="number">233</span>;</span><br><span class="line">Point p[maxn];<span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">min_circle_cover</span><span class="params">(Point p[],<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	srand((<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>)<span class="string">"Wzp Ak All OI contests"</span>);</span><br><span class="line">	random_shuffle(p,p+n);</span><br><span class="line">	<span class="keyword">double</span> r = <span class="number">0</span>;</span><br><span class="line">	Point c = p[<span class="number">0</span>];</span><br><span class="line">	rep(i,<span class="number">1</span>,n)&#123;</span><br><span class="line">		<span class="keyword">if</span>(dcmp(dist(p[i],c) - r) &gt; <span class="number">0</span>)&#123;</span><br><span class="line">			c = p[i];r = <span class="number">0</span>;<span class="comment">//够不到（逃 </span></span><br><span class="line">			rep(j,<span class="number">0</span>,i)&#123;</span><br><span class="line">				<span class="keyword">if</span>(dcmp(dist(p[j],c)-r)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">					c = (p[i]+p[j])/<span class="number">2</span>;r = dist(p[i],c);</span><br><span class="line">					rep(k,<span class="number">0</span>,j)&#123;</span><br><span class="line">						<span class="keyword">if</span>(dcmp(dist(p[k],c)-r)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">							c = center(p[i],p[j],p[k]);</span><br><span class="line">							r = dist(p[i],c);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> r;</span><br><span class="line">&#125;<span class="comment">//给定n个点，求它们的最小圆覆盖的半径</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	n = rd();</span><br><span class="line">	rep(i,<span class="number">0</span>,n)</span><br><span class="line">		p[i].x=rdb(),p[i].y=rdb();</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%.3lf\n"</span>,min_circle_cover());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><del>突然想开个坑来填模板</del></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算几何/" rel="tag"># 计算几何</a>
+          
+            <a href="/tags/期望/" rel="tag"># 期望</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/22/BZOJ1095[ZJOI2007]Hide 捉迷藏/" rel="next" title="BZOJ1095[ZJOI2007]Hide 捉迷藏">
+                <i class="fa fa-chevron-left"></i> BZOJ1095[ZJOI2007]Hide 捉迷藏
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/22/BZOJ1412 [ZJOI2009]狼和羊的故事/" rel="prev" title="BZOJ1412 [ZJOI2009]狼和羊的故事">
+                BZOJ1412 [ZJOI2009]狼和羊的故事 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/zhouzhendong/" title="ZZD___Orz" target="_blank">ZZD___Orz</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/chunlvxiong/" title="CLJ___Orz" target="_blank">CLJ___Orz</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题意"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#吐槽"><span class="nav-number">2.</span> <span class="nav-text">吐槽</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

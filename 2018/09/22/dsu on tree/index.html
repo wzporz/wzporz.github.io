@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="大概是看了一波，然后感觉 ​    貌似大多数情况下还是点分优秀？ ​        也许能解决一些点分不能解决的题。 ​    貌似大多数情况下还是莫队好写？ ​        而且有时候复杂度是两只log，而莫队只要一个根号+小常数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dsu on tree">
+<meta property="og:url" content="http://yoursite.com/2018/09/22/dsu on tree/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="大概是看了一波，然后感觉 ​    貌似大多数情况下还是点分优秀？ ​        也许能解决一些点分不能解决的题。 ​    貌似大多数情况下还是莫队好写？ ​        而且有时候复杂度是两只log，而莫队只要一个根号+小常数。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-01-25T10:45:18.717Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dsu on tree">
+<meta name="twitter:description" content="大概是看了一波，然后感觉 ​    貌似大多数情况下还是点分优秀？ ​        也许能解决一些点分不能解决的题。 ​    貌似大多数情况下还是莫队好写？ ​        而且有时候复杂度是两只log，而莫队只要一个根号+小常数。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/22/dsu on tree/"/>
+
+
+
+
+
+  <title>dsu on tree | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/22/dsu on tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">dsu on tree</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-22T17:35:59+08:00">
+                2018-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>大概是看了一波，然后感觉</p>
+<p>​    貌似大多数情况下还是点分优秀？</p>
+<p>​        也许能解决一些点分不能解决的题。</p>
+<p>​    貌似大多数情况下还是莫队好写？</p>
+<p>​        而且有时候复杂度是两只log，而莫队只要一个根号+小常数。</p>
+<a id="more"></a>
+<p>推荐并感谢：<a href="http://codeforces.com/blog/entry/44351" target="_blank" rel="noopener">http://codeforces.com/blog/entry/44351</a></p>
+<h4 id="dsu-on-tree是什么"><a href="#dsu-on-tree是什么" class="headerlink" title="dsu on tree是什么"></a>dsu on tree是什么</h4><p>​    大概是基于启发式的树上某离线算法。</p>
+<h4 id="dsu-on-tree能干什么？"><a href="#dsu-on-tree能干什么？" class="headerlink" title="dsu on tree能干什么？"></a>dsu on tree能干什么？</h4><p>​    <strong>离线</strong>解决一些关于某个节点的子树的问题。</p>
+<h4 id="dsu-on-tree-大概有多慢"><a href="#dsu-on-tree-大概有多慢" class="headerlink" title="$dsu on tree$大概有多慢"></a>$dsu on tree$大概有多慢</h4><p>​    外层套着的复杂度是$O(n log n)$的。但是常数小呀——因为是基于树剖的呀。</p>
+<h4 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h4><p>​    其实并没有。只需要知道一点类似树链剖分(heavy-light decomposition)的关于重儿子的概念。</p>
+<h4 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h4><p><strong>codeforces600E. Lomsat gelral</strong></p>
+<p>​    <a href="http://codeforces.com/contest/600/problem/E" target="_blank" rel="noopener">http://codeforces.com/contest/600/problem/E</a></p>
+<p>​    <strong>题意：</strong></p>
+<p>​        n个点的有根树，以1为根，每个点有一种颜色。我们称一种颜色占领了一个子树当且仅当没有其他颜色在这个子树中出现得比它多。求占领每个子树的所有颜色之和。</p>
+<p>​    <strong>题解:</strong></p>
+<p>​        考虑暴力的做法，我们可以遍历这个子树内的每一个节点，然后把占领颜色最多的通过一个数组计算出来。</p>
+<p>​        做完之后暴力删除这个节点的贡献。</p>
+<p>​        时间复杂度$O(n^2)$</p>
+<p>贡献大概可以类似地算:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cnt[c[u]]++;</span><br><span class="line">if(cnt[c[u]]&gt;=cmax)&#123;</span><br><span class="line">	if(cnt[c[u]] &gt; cmax)&#123;</span><br><span class="line">		cmax = cnt[c[u]];</span><br><span class="line">		sum = 0;</span><br><span class="line">	&#125;</span><br><span class="line">	sum += c[u];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        我们注意到，有些有用的信息也被删除了。</p>
+<p>​        考虑一种优化，我们对于每一个节点都保存这样的值，然后合并到它的父亲上，用set来进行启发式合并，这样能时间复杂度是$O(n log^2n)$</p>
+<p>​    还可以这么做：</p>
+<p>​        我们对于一棵树每一个节点找出重儿子，每次先处理轻儿子，暴力删除轻儿子的贡献，然后把重儿子（因为是最后处理的，所以不会对前面的轻儿子的处理产生干扰）的贡献传递给父亲。</p>
+<p>​        到要处理一个点的时候，暴力算轻儿子的贡献。这样的复杂度对吗？</p>
+<p>​        因为一条路径上最多只会有$log$个轻边，而每个点只有上面的轻边的时候才会被删除，所以复杂度是$O(n log n)$。</p>
+<p>​    这其实是<strong>dsu on tree</strong>的一种通用解法。</p>
+<h4 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h4><p>​    让自己慢慢做吧。</p>
+<p>​    我还是太弱了。</p>
+<p>题面:<a href="http://codeforces.com/contest/600/problem/E" target="_blank" rel="noopener">http://codeforces.com/contest/600/problem/E</a></p>
+<blockquote>
+<p>代码:<a href="http://codeforces.com/contest/600/submission/33974891" target="_blank" rel="noopener">http://codeforces.com/contest/600/submission/33974891</a></p>
+</blockquote>
+<p>题面: <a href="http://codeforces.com/problemset/problem/570/D" target="_blank" rel="noopener">http://codeforces.com/problemset/problem/570/D</a></p>
+<blockquote>
+<p>代码: <a href="http://codeforces.com/contest/570/submission/33975177" target="_blank" rel="noopener">http://codeforces.com/contest/570/submission/33975177</a></p>
+<p>​    这题的做法大概就是update的时候用树状数组来维护。</p>
+</blockquote>
+<p>题面: <a href="http://codeforces.com/problemset/problem/208/E" target="_blank" rel="noopener">http://codeforces.com/problemset/problem/208/E</a></p>
+<blockquote>
+<p>代码: <a href="http://codeforces.com/contest/208/submission/33975619" target="_blank" rel="noopener">http://codeforces.com/contest/208/submission/33975619</a></p>
+</blockquote>
+<p>题面: <a href="http://codeforces.com/problemset/problem/375/D" target="_blank" rel="noopener">http://codeforces.com/problemset/problem/375/D</a></p>
+<blockquote>
+<p>用dsu on tree貌似超时了，应该是我哪里写错了</p>
+<p>代码1(TLE): <a href="http://codeforces.com/contest/375/submission/33976745" target="_blank" rel="noopener">http://codeforces.com/contest/375/submission/33976745</a></p>
+<p>大概是改不对，所以抄一个莫队……</p>
+<p>代码2(AC): <a href="http://codeforces.com/contest/375/submission/33976761" target="_blank" rel="noopener">http://codeforces.com/contest/375/submission/33976761</a></p>
+</blockquote>
+<p>题面：<a href="http://codeforces.com/problemset/problem/741/D" target="_blank" rel="noopener">http://codeforces.com/problemset/problem/741/D</a></p>
+<blockquote>
+<p>大概就是用一个1&lt;&lt;22的数组来保存一个点到根路劲上的状态（是奇数还是偶数），然后回文就是只有一个或者没有是奇数的，那么枚举哪个是奇数。update一下。代码：<a href="http://codeforces.com/contest/741/submission/33978144" target="_blank" rel="noopener">http://codeforces.com/contest/741/submission/33978144</a></p>
+</blockquote>
+<p>题面：<a href="http://www.lydsy.com/JudgeOnline/problem.php?id=2599" target="_blank" rel="noopener">http://www.lydsy.com/JudgeOnline/problem.php?id=2599</a></p>
+<blockquote>
+<p>太难，不做了。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/22/codeforces915-Edu36/" rel="next" title="codeforces915-Edu36">
+                <i class="fa fa-chevron-left"></i> codeforces915-Edu36
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/22/codeforces976F Minimal k-covering/" rel="prev" title="codeforces976F Minimal k-covering">
+                codeforces976F Minimal k-covering <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/zhouzhendong/" title="ZZD___Orz" target="_blank">ZZD___Orz</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/chunlvxiong/" title="CLJ___Orz" target="_blank">CLJ___Orz</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#dsu-on-tree是什么"><span class="nav-number">1.</span> <span class="nav-text">dsu on tree是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dsu-on-tree能干什么？"><span class="nav-number">2.</span> <span class="nav-text">dsu on tree能干什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dsu-on-tree-大概有多慢"><span class="nav-number">3.</span> <span class="nav-text">$dsu on tree$大概有多慢</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预备知识"><span class="nav-number">4.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例题："><span class="nav-number">5.</span> <span class="nav-text">例题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#练习题"><span class="nav-number">6.</span> <span class="nav-text">练习题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

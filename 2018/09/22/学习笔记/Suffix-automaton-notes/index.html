@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="学习笔记,字符串,后缀自动机," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="坑，也许不填了 定义S的后缀自动机的节点中包含且仅包含了S所有的子串。并且其状态最简（节点尽可能少） 后缀自动机（suffix automaton，简称SAM）一般由2部分组成:DAWG和Suffix Link">
+<meta name="keywords" content="学习笔记,字符串,后缀自动机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后缀自动机学习笔记">
+<meta property="og:url" content="http://yoursite.com/2018/09/22/学习笔记/Suffix-automaton-notes/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="坑，也许不填了 定义S的后缀自动机的节点中包含且仅包含了S所有的子串。并且其状态最简（节点尽可能少） 后缀自动机（suffix automaton，简称SAM）一般由2部分组成:DAWG和Suffix Link">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="c:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/WF.png">
+<meta property="og:image" content="c:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9E%84%E9%80%A02.jpg">
+<meta property="og:image" content="c:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9E%84%E9%80%A03.jpg">
+<meta property="og:image" content="c:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9E%84%E9%80%A04.jpg">
+<meta property="og:image" content="c:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9E%84%E9%80%A05.jpg">
+<meta property="og:updated_time" content="2018-09-22T09:38:23.667Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="后缀自动机学习笔记">
+<meta name="twitter:description" content="坑，也许不填了 定义S的后缀自动机的节点中包含且仅包含了S所有的子串。并且其状态最简（节点尽可能少） 后缀自动机（suffix automaton，简称SAM）一般由2部分组成:DAWG和Suffix Link">
+<meta name="twitter:image" content="c:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/WF.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/22/学习笔记/Suffix-automaton-notes/"/>
+
+
+
+
+
+  <title>后缀自动机学习笔记 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/22/学习笔记/Suffix-automaton-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">后缀自动机学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-22T17:35:59+08:00">
+                2018-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>坑，也许不填了</strong></p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>S的后缀自动机的节点中包含且仅包含了S所有的子串。并且其状态最简（节点尽可能少）</p>
+<p>后缀自动机（suffix automaton，简称SAM）一般由2部分组成:<strong>DAWG</strong>和<strong>Suffix Link</strong></p>
+<a id="more"></a>
+<h4 id="DAWG"><a href="#DAWG" class="headerlink" title="DAWG"></a>DAWG</h4><p>定义$trans[x][c]$表示从节点（状态）x，加入字符c后到达的状态，可以类比AC自动机构建出的$trie$图。但它是一个<strong>DAG</strong> 。从根到达某一个点的路径其实就是子串的若干字符</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="1、字符串的子串。"><a href="#1、字符串的子串。" class="headerlink" title="1、字符串的子串。"></a>1、字符串的子串。</h4><p>一个状态能代表字符串的子串，根据定义可以知道所有节点代表的字符串的集合的并就是S的所有子串，容易理解每个节点代表的字符串的子串都应该是不重复的。</p>
+<p>其中一个节点能表示的子串相当于root顺着trans能走到它的一些路径</p>
+<blockquote>
+<p>字符串<code>aabaabaab</code>中，某一个节点x表示字符串{<code>aab</code>,<code>ab</code>,<code>b</code>}</p>
+<blockquote>
+<p>为了简化状态，一个节点可以表示多个子串，如某个节点表示{<code>aa</code>}，那么可以表示第一个a，也可以表示第二个，第四个……而且得保证之后不会再有节点表示<code>aa</code></p>
+</blockquote>
+</blockquote>
+<p>有一个性质就是，每个串都是比它长的那一个串的后缀。而且长度相差为1。</p>
+<h4 id="2、max和min"><a href="#2、max和min" class="headerlink" title="2、max和min"></a>2、max和min</h4><p>定义max为某个串能表示的所有子串中长度最长的，min表示能表示的串中长度最短的。</p>
+<p>注意，min不一定为1。</p>
+<p>根据定义，$max-min+1$就是这个串能表示的所有本质不同的子串的数量。</p>
+<p>同样知道$\sum _{i=1}^{maxnode} max[i]-min[i]+1$就是S中本质不同的字符串的数量。</p>
+<h4 id="3、-right-集合-endpos"><a href="#3、-right-集合-endpos" class="headerlink" title="3、$right$集合($endpos$)"></a>3、$right$集合($endpos$)</h4><p>一个状态的$endpos$代表它能代表的子串的结束位置</p>
+<p>同时定义$Cntpos$为$|endpos|$</p>
+<blockquote>
+<p>字符串<code>aabaabaab</code>中，若某一个节点x表示{<code>aab</code>,<code>ab</code>,<code>b</code>}right集合有{3,6,9}，其$Cntpos$ = 3</p>
+</blockquote>
+<p>所有节点的$Cntpos$再乘上其能表示的子串大小之和就是S所有子串的数目。</p>
+<h4 id="4、转移边"><a href="#4、转移边" class="headerlink" title="4、转移边"></a>4、转移边</h4><p>定义$trans(x,c)$表示状态$x$加入字符$c$后能转移到哪里。</p>
+<h4 id="5、后缀链接-Suffix-Link-和parents树"><a href="#5、后缀链接-Suffix-Link-和parents树" class="headerlink" title="5、后缀链接(Suffix Link)和parents树"></a>5、后缀链接(Suffix Link)和parents树</h4><p>用$next(i)$表示$i$的后缀链接</p>
+<p>一个状态有且仅一个后缀链接，表示这个串能表示的最短子串能从哪个状态所代表的最长子串通过去点最前面那个字符得到</p>
+<p>如某个状态x表示{<code>aab</code>,<code>aaab</code>}，如果有一个状态y<strong>包含</strong>{<code>ab</code>}，那么x的后缀链接(Suffix Link)就连向y，如果这时候有一个状态z表示{<code>b</code>}，那么y的后缀链接转移到z。</p>
+<p>容易发现，$min(x) = max(next(x)) + 1$</p>
+<p>由于S的所有子串当且仅当在一个节点中出现，所以每个点只可能有一条后缀链接（开始节点没有后缀连接），后缀链接能构成一棵树。我们叫它前缀树或者parents树。</p>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><blockquote>
+<blockquote>
+<p>蓝色表示转移边</p>
+</blockquote>
+<blockquote>
+<p>绿色表示后缀链接</p>
+</blockquote>
+<blockquote>
+<p>{}表示集合</p>
+</blockquote>
+<p>比如说字符串<code>aab</code>构建的后缀自动机（注意节点个数由于可能出现无法表示的点而不一定只有串长个，这里的例子没有出现）</p>
+<p>当然1号点（root）的后缀链接是连向NULL<img src="C:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/WF.png" alt="举例"></p>
+</blockquote>
+<p>那么从1走到4的路径有$1-&gt;4|1-&gt;2-&gt;4|1-&gt;2-&gt;3-&gt;4$，显然能代表3个子串</p>
+<p>2号点的right集合为{1,2}，right集合可以通过Suffix Link推得到（当前这个节点代表的和它的后缀链接链到的）</p>
+<h3 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h3><p>我讲不清的呀</p>
+<p>丢参考链接跑</p>
+<p><a href="https://oi.men.ci/suffix-automaton-notes/" target="_blank" rel="noopener">menci的博客</a></p>
+<p><a href="https://wenku.baidu.com/view/fa02d3fff111f18582d05a81.html" target="_blank" rel="noopener">陈老师的讲稿</a></p>
+<p>具体思想就是在一个构建好的后缀自动机后面加入一个字符c。</p>
+<p>需要维护新加入节点和之前节点的trans和suffix_link。这个可以类比AC自动机。</p>
+<p>我们原来的有一个结束状态last。表示上次最后插入的那个状态。</p>
+<blockquote>
+<p>令之前的串为S。</p>
+<p>显然last能表示的S的一些后缀。</p>
+<p>S到last的路径并没有包含所有后缀，因为有一些后缀是前面出现过的，根据状态最简，所以有一些后缀之前已经出现过了。</p>
+<p>但是我们能够想到，最长的后缀一定是它能代表（包含）的。因为不可能有其他状态能表示。那么根据定义，last能表示的后缀是连续的一段。那么另外一些后缀根据定义，是last所指状态的后缀链接链向的。</p>
+<p>例如S为<code>abaaab</code></p>
+<p>比如说last能代表{<code>aaab</code>,<code>aab</code>}，那么last的后缀链接能连向一个节点v，v代表{<code>ab</code>,<code>b</code>}。</p>
+</blockquote>
+<p>所以说，只要顺着last的后缀链接，就能到达所有后缀，只要所有后缀都能链向新节点，如果能遍历所有后缀（包括空也算后缀），就能够完成操作。</p>
+<p>但问题在于，万一加入的一个字符使得前面某个后缀已经有转移状态了呢？</p>
+<p>假设当前处理到节点v，使得$trans[v][c] != NULL$ ，令$trans[v][c]$ = o</p>
+<blockquote>
+<p>还是通过一个实例来理解一下</p>
+<p><strong>强烈建议各位在纸上自己画一画，特别是把代表的字符串画出来</strong></p>
+<p>S = <code>ababb</code></p>
+<p>先插入一个节点代表root，使得其max=0，令last=root</p>
+<p>然后插入第一个节点，简称（1），其表示的子串为<code>a</code>，那么从root的<code>a</code>的转移便是1，此时1的max=1，同时1号点的Link指向root。令last=1</p>
+<p>然后再插入第二个点（2），注意到1是最后插入的，也就是1的后缀链接能走通所有后缀，那么我们让$trans[1][b] = 2$，表示从1通过在1的所有子串后面加上一个<code>b</code>就能组成2集合的一部分。此时（2）可以表示子串{<code>ab</code>}，那么顺着后缀链接到字符串<code>a</code>的一个后缀（不妨把空也看作后缀），那么从空到（2）一条转移边，意义同上一条转移边，此时2能代表{<code>b</code>,<code>ab</code>}，令2的Link指向root，因为（2）没能代表的子串只有{空}，令last=2</p>
+<p><img src="C:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9E%84%E9%80%A02.jpg" alt="构造2"></p>
+<p>同样的道理插入第三个点，令$trans[2][a] = 3$，$max[3] = max[2]+1 = 3$（至少一定要代表当前的整个前缀。</p>
+<p>那么我们再指向root，发现root已经有a的边的，强行把root的转移边指向3会引发一系列的惨案。我们注意新加入一个串还有一个子串没有处理{<code>a</code>}，但事实上，第一个节点代表的就是<code>a</code>（而1就正好是root的<code>a</code>转移所指向的点），出于最简状态，我们把3号点的Link指向1，发现什么事情都没有发生，还是满足后缀自动机的若干性质，于是令last = 3.</p>
+<p><img src="C:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9E%84%E9%80%A03.jpg" alt="构造3"></p>
+</blockquote>
+<p>好奇怪的操作？？？？那么我们加入下一个节点</p>
+<p>与第三个节点类似的操作，指向第一个被控制的指向的那个节点），发现竟然依旧满足性</p>
+<p><img src="C:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9E%84%E9%80%A04.jpg" alt="构造4"></p>
+<p>是不是所有情况都可以这么处理？不是。</p>
+<p>什么情况下可以这么处理？</p>
+<p>假设当前处理到节点v，使得$trans[v][c] != NULL$ ，令$trans[v][c]$ = o</p>
+<p>当$max[v]+1 = max[o]$的时候可以直接这么处理。为什么？</p>
+<p>注意到这时候我们缺的是v的所以代表的子串在最后面加上一个字符c，所能得到的那些子串的集合。而o正好包含了这些的集合，也就包含了当前缺少的长度最长的那个串T。由于每个节点所能表示的子串都是后缀关系，显然只要它不代表长度大于T的串即可，其等价于它最长的串的长度刚好是max[v]+1，也就是当前缺少的那个串。</p>
+<blockquote>
+<p>继续模拟这个过程，我们加入一个字符<code>b</code>注意此时有大问题出现了</p>
+<p>模拟4号节点插入5号节点，直到当前处理的v = root，因为root有一条b的转移边。</p>
+<p>注意到5号节点目前代表的集合是{<code>ababb</code>,<code>babb</code>,<code>abb</code>,<code>bb</code>}如果强行把5号节点的Link指向2号节点，必然导致<code>ab</code>并不是它的子串的后缀。那么问题有点麻烦，怎么办呢？新建一个点，让它只代表{<code>b</code>}，让2号点只代表{<code>ab</code>}，然后进行一系列的操作，使得满足Link的性质。操作完成之后是这样的。具体步骤就是把2号点的所有转移边复制到6号点，再让6号点的Link指向root，让2号点的Link指向6号，让5号点的Link指向6号。</p>
+<p><img src="C:/Users/cqz15/Desktop/hexo%E5%A4%87%E4%BB%BD/source/_posts/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9E%84%E9%80%A05.jpg" alt="构造5"></p>
+<p>巧妙的数据结构！</p>
+</blockquote>
+<pre><code>很多时候，我们需要得到right集合。具体操作是，一开始在所有结束位置标记一下，然后遍历整个parents树，将其子节点的right集合合并成其的right集合——考虑parents树的性质：一个节点的祖先代表的字符串一定是它代表的字符串的后缀。
+</code></pre><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><pre><code>要记录哪些东西？
+
+一般需要记录max，记录trans（如果字符集大小很大，一般用map来存，否则直接数组存），下面用ch表示，还要记录suffixLink，下面用next表示。
+</code></pre><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SuffixAutomaton</span>&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">		<span class="keyword">int</span> ch[<span class="number">26</span>],next,max;</span><br><span class="line">	&#125;node[maxn];</span><br><span class="line">	<span class="keyword">int</span> start,last;</span><br><span class="line">	<span class="keyword">int</span> tot;</span><br><span class="line">	SuffixAutomaton()&#123;</span><br><span class="line">		tot = <span class="number">0</span>;</span><br><span class="line">		start = last = newnode(<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> max)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> x = ++tot;</span><br><span class="line">		node[x] . max = max;</span><br><span class="line">		mem(node[x].ch,<span class="number">0</span>);</span><br><span class="line">		node[x] . next = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> x;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">extend</span><span class="params">(<span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> u = newnode(node[last] . max + <span class="number">1</span>),v = last;</span><br><span class="line">		size[u] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(;v &amp;&amp; !node[v].ch[c];v = node[v].next)</span><br><span class="line">			node[v].ch[c] = u;</span><br><span class="line">		<span class="keyword">if</span>(!v)&#123;</span><br><span class="line">			node[u] . next = start;</span><br><span class="line">		&#125; <span class="keyword">else</span></span><br><span class="line">		<span class="keyword">if</span>(node[node[v].ch[c]].max == node[v].max + <span class="number">1</span>)&#123;</span><br><span class="line">			node[u].next = node[v].ch[c];</span><br><span class="line">		&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">int</span> n = newnode(node[v].max+<span class="number">1</span>),o = node[v].ch[c];</span><br><span class="line">			rep(k,<span class="number">0</span>,<span class="number">26</span>) node[n].ch[k] = node[o].ch[k];</span><br><span class="line">			node[n] . next = node[o].next;</span><br><span class="line">			node[o].next = node[u].next = n;</span><br><span class="line">			<span class="keyword">for</span>(;v &amp;&amp; node[v].ch[c] == o;v=node[v].next)</span><br><span class="line">				node[v].ch[c] = n;</span><br><span class="line">		&#125;</span><br><span class="line">		last = u;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;sam;</span><br></pre></td></tr></table></figure>
+<p>注：在字符集大小比较大的情况下可以把.ch[]换成map。</p>
+<p><strong>update：2018/9/8：</strong>现在习惯用T[]来表示node[]，用nxt[]表示ch[]，用link表示next。下面附上带有合并right集合的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SAM</span>&#123;</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> maxm = maxn * <span class="number">2</span>;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">		<span class="keyword">int</span> link,nxt[<span class="number">26</span>],max;</span><br><span class="line">	&#125;T[maxm];</span><br><span class="line">	<span class="keyword">int</span> tot,start,last;</span><br><span class="line">	SAM()&#123;</span><br><span class="line">		tot = <span class="number">0</span>;</span><br><span class="line">		start = last = newnode(<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">		++tot;</span><br><span class="line">		T[tot] . link = <span class="number">0</span>;</span><br><span class="line">		mem(T[tot].nxt,<span class="number">0</span>);</span><br><span class="line">		T[tot] . max = x;</span><br><span class="line">		<span class="keyword">return</span> tot;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> tpos[maxm];</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">extend</span><span class="params">(<span class="keyword">char</span> c,<span class="keyword">int</span> tmpp)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> u = newnode(T[last].max+<span class="number">1</span>),v = last;</span><br><span class="line">		tpos[u] = tmpp;</span><br><span class="line">		<span class="keyword">for</span>(;v &amp;&amp; T[v].nxt[c] == <span class="number">0</span>;v = T[v].link)&#123;</span><br><span class="line">			T[v] . nxt[c] = u;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(!v)&#123;</span><br><span class="line">			T[u] . link = start;</span><br><span class="line">		&#125; <span class="keyword">else</span></span><br><span class="line">		<span class="keyword">if</span>(T[v].max+<span class="number">1</span> == T[T[v].nxt[c]].max)&#123;</span><br><span class="line">			T[u] . link = T[v] . nxt[c];</span><br><span class="line">		&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">int</span> n = newnode(T[v].max + <span class="number">1</span>),o = T[v].nxt[c];</span><br><span class="line">			rep(i,<span class="number">0</span>,<span class="number">26</span>) T[n] . nxt[i] = T[o] . nxt[i];</span><br><span class="line">			T[n] . link = T[o] . link;</span><br><span class="line">			T[o] . link = T[u] . link = n;</span><br><span class="line">			<span class="keyword">for</span>(;v &amp;&amp; T[v] . nxt[c] == o;v = T[v].link)</span><br><span class="line">				T[v] . nxt[c] = n;</span><br><span class="line">		&#125;</span><br><span class="line">		last = u;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; edge[maxm];</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> v : edge[u])&#123;</span><br><span class="line">			dfs(v);</span><br><span class="line">			root[u] = merge(root[u],root[v]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Rep(i,<span class="number">1</span>,tot) root[i] = <span class="number">0</span>;</span><br><span class="line">		Rep(i,<span class="number">1</span>,tot) <span class="keyword">if</span>(tpos[i])&#123;</span><br><span class="line">			insert(root[i],<span class="number">1</span>,n,tpos[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		Rep(i,<span class="number">2</span>,tot)&#123;</span><br><span class="line">			edge[T[i] . link] . push_back(i);</span><br><span class="line">		&#125;</span><br><span class="line">		dfs(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;sam;</span><br></pre></td></tr></table></figure>
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><pre><code>$O(n * alpha)$，$alpha$表示字符集大小。
+
+证明这种东西，我这么菜完全不会。
+</code></pre><h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><h4 id="parents树"><a href="#parents树" class="headerlink" title="parents树"></a>parents树</h4><pre><code>一个节点的parents树上的祖先节点所代表的字符串都是这个节点所代表的字符串的后缀。
+
+换句话说，一个节点的子树中的字符串都是这个节点的字符串在前面加上若干字符得到的。
+
+**字符串S的反串的SAM里面的parents树就是S的后缀树。**这个通过理解parents树的性质很容易理解。
+
+多出来的节点是分叉的时候的显式节点，本来就有的是叶节点。然后可以利用**后缀树的LCA为两个后缀的LCP**来搞事情。
+</code></pre><h4 id="right集合（endpos"><a href="#right集合（endpos" class="headerlink" title="right集合（endpos)"></a>right集合（endpos)</h4><pre><code>就是这个节点所代表的字符串在原串中出现的位置的结束位置的集合。
+
+得到SAM后，我们可以得到S串的所有前缀出现的结束位置，容易发现S的所有前缀的后缀就是S的所有子串，而对于字符串S，它的后缀就是其parents树上的祖先，所以我们可以先在所有字符串S的前缀的结束位置打上一个标记，然后遍历整个树，用线段树合并可以得到right集合。
+</code></pre><h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><h4 id="codeforces1037H-Security"><a href="#codeforces1037H-Security" class="headerlink" title="codeforces1037H. Security"></a>codeforces1037H. Security</h4><p><strong>update：2018/9/8</strong></p>
+<p><strong>题意：</strong></p>
+<p>给你一个长度不超过1e5字符串S，接下来m个询问，每个询问给出L,R,T，T是一个总长度不超过2e5的字符串，让你取出S在区间[L,R]的部分得到一个子串SS，然后找SS的子串中字典序严格比T大的最小的字符串，如果不存在输出-1。</p>
+<p><strong>做法：</strong></p>
+<p>如果对于一个固定的前缀，那么后面一定是加上一个字符（多个字符显然更劣）。<br>对于每一个，我们枚举前缀，然后枚举新的字符（满足变成的字典序要比原来的大），然后判断区间是否存在某个字符串。<br>这是一个经典的SAM问题。<br>我们先建立出后缀自动机，然后线段树合并爆出right集合，然后找到代表这个字符串的节点，并在其查询right中查询是否存在一个字符串出现在区间内。<br>处理部分时间复杂度 $O(lenT <em> 26 </em> log(lenS))$<br>注意到我们只需要看每一个位置的下一个即可，我们考虑把right集合作一个转化，转化成下一个字符是否可以是某个值。<br>然后继续爆”right集合”，这样就可以得到一个前缀在字符串的某个区间能能否加某个字符，注意到这是可以状态压缩的，直接$2^{26}$存每个位置的是否可以即可。<br>这样枚举下一个字符填什么，就可以$O(1)$判断了。<br>处理部分时间复杂度 $O(lenT * (26 + log lenS))$。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; pii;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Rep(i,a,b) for(register int i=(a);i&lt;=int(b);++i)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Dep(i,a,b) for(register int i=(a);i&gt;=int(b);--i)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i,a,b) for(register int i=(a);i&lt;int(b);++i)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mem(x,v) memset(x,v,sizeof(x))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> gc getchar</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pc putchar</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">rd</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ll x=<span class="number">0</span>,f=<span class="number">1</span>;<span class="keyword">char</span> c=gc();</span><br><span class="line">    <span class="keyword">for</span>(;!<span class="built_in">isdigit</span>(c);c=gc())<span class="keyword">if</span>(c==<span class="string">'-'</span>)f=<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(;<span class="built_in">isdigit</span>(c);c=gc())x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+(c^<span class="number">48</span>);</span><br><span class="line">    <span class="keyword">return</span> x*f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">write</span><span class="params">(ll x)</span></span>&#123;<span class="keyword">if</span>(x&lt;<span class="number">0</span>)x=-x,pc(<span class="string">'-'</span>);<span class="keyword">if</span>(x&gt;=<span class="number">10</span>)write(x/<span class="number">10</span>);<span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">'0'</span>);&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writeln</span><span class="params">(ll x)</span></span>&#123;write(x);<span class="built_in">puts</span>(<span class="string">""</span>);&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2e5</span>+<span class="number">233</span>;</span><br><span class="line"><span class="keyword">namespace</span> SegmentTree&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> maxm = maxn * <span class="number">60</span>;</span><br><span class="line">	<span class="keyword">int</span> lc[maxm],rc[maxm],T[maxm],tot=<span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> &amp;o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> x,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!o) o = ++tot,T[o] = <span class="number">0</span>;</span><br><span class="line">		T[o] |= v;</span><br><span class="line">		<span class="keyword">if</span>(l==r) <span class="keyword">return</span>;</span><br><span class="line">		<span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(x &lt;= mid) insert(lc[o],l,mid,x,v); <span class="keyword">else</span></span><br><span class="line">					 insert(rc[o],mid+<span class="number">1</span>,r,x,v);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!o) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(l==x &amp;&amp; r==y) <span class="keyword">return</span> T[o];</span><br><span class="line">		<span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(y &lt;= mid) <span class="keyword">return</span> query(lc[o],l,mid,x,y); <span class="keyword">else</span></span><br><span class="line">		<span class="keyword">if</span>(mid+<span class="number">1</span>&lt;=x) <span class="keyword">return</span> query(rc[o],mid+<span class="number">1</span>,r,x,y); <span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> query(lc[o],l,mid,x,mid) | query(rc[o],mid+<span class="number">1</span>,r,mid+<span class="number">1</span>,y);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!x || !y) <span class="keyword">return</span> x + y;</span><br><span class="line">		<span class="keyword">int</span> z = ++tot;</span><br><span class="line">		T[z] = T[x] | T[y];</span><br><span class="line">		lc[z] = merge(lc[x],lc[y]);</span><br><span class="line">		rc[z] = merge(rc[x],rc[y]);</span><br><span class="line">		<span class="keyword">return</span> z;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">using</span> SegmentTree::insert;</span><br><span class="line"><span class="keyword">using</span> SegmentTree::merge;</span><br><span class="line"><span class="keyword">using</span> SegmentTree::query;</span><br><span class="line"><span class="keyword">int</span> root[maxn*<span class="number">2</span>],n;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SAM</span>&#123;</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> maxm = maxn * <span class="number">2</span>;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">		<span class="keyword">int</span> link,nxt[<span class="number">26</span>],max;</span><br><span class="line">	&#125;T[maxm];</span><br><span class="line">	<span class="keyword">int</span> tot,start,last;</span><br><span class="line">	SAM()&#123;</span><br><span class="line">		tot = <span class="number">0</span>;</span><br><span class="line">		start = last = newnode(<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">		++tot;</span><br><span class="line">		T[tot] . link = <span class="number">0</span>;</span><br><span class="line">		mem(T[tot].nxt,<span class="number">0</span>);</span><br><span class="line">		T[tot] . max = x;</span><br><span class="line">		<span class="keyword">return</span> tot;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> tpos[maxm],vpos[maxm];</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">extend</span><span class="params">(<span class="keyword">char</span> c,<span class="keyword">int</span> flag)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> u = newnode(T[last].max+<span class="number">1</span>),v = last;</span><br><span class="line">		tpos[v] = flag;vpos[v] = c;</span><br><span class="line">		<span class="keyword">for</span>(;v &amp;&amp; T[v].nxt[c] == <span class="number">0</span>;v = T[v].link)&#123;</span><br><span class="line">			T[v] . nxt[c] = u;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(!v)&#123;</span><br><span class="line">			T[u] . link = start;</span><br><span class="line">		&#125; <span class="keyword">else</span></span><br><span class="line">		<span class="keyword">if</span>(T[v].max+<span class="number">1</span> == T[T[v].nxt[c]].max)&#123;</span><br><span class="line">			T[u] . link = T[v] . nxt[c];</span><br><span class="line">		&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">int</span> n = newnode(T[v].max + <span class="number">1</span>),o = T[v].nxt[c];</span><br><span class="line">			rep(i,<span class="number">0</span>,<span class="number">26</span>) T[n] . nxt[i] = T[o] . nxt[i];</span><br><span class="line">			T[n] . link = T[o] . link;</span><br><span class="line">			T[o] . link = T[u] . link = n;</span><br><span class="line">			<span class="keyword">for</span>(;v &amp;&amp; T[v] . nxt[c] == o;v = T[v].link)</span><br><span class="line">				T[v] . nxt[c] = n;</span><br><span class="line">		&#125;</span><br><span class="line">		last = u;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; edge[maxm];</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> v : edge[u])&#123;</span><br><span class="line">			dfs(v);</span><br><span class="line">			root[u] = merge(root[u],root[v]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Rep(i,<span class="number">1</span>,tot) root[i] = <span class="number">0</span>;</span><br><span class="line">		Rep(i,<span class="number">1</span>,tot) <span class="keyword">if</span>(tpos[i])&#123;</span><br><span class="line">			insert(root[i],<span class="number">1</span>,n,tpos[i],<span class="number">1</span>&lt;&lt;vpos[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		Rep(i,<span class="number">2</span>,tot)&#123;</span><br><span class="line">			edge[T[i] . link] . push_back(i);</span><br><span class="line">		&#125;</span><br><span class="line">		dfs(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;sam;</span><br><span class="line"><span class="keyword">char</span> S[maxn],T[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>,S+<span class="number">1</span>);</span><br><span class="line">	n = <span class="built_in">strlen</span>(S+<span class="number">1</span>);</span><br><span class="line">	Rep(i,<span class="number">1</span>,n) sam.extend(S[i]-<span class="string">'a'</span>,i);</span><br><span class="line">	sam.init();</span><br><span class="line">	<span class="keyword">int</span> Case = rd();</span><br><span class="line">	<span class="keyword">while</span>(Case--)&#123;</span><br><span class="line">		<span class="keyword">int</span> l = rd(),r = rd();</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%s"</span>,T+<span class="number">1</span>);</span><br><span class="line">		T[<span class="built_in">strlen</span>(T+<span class="number">1</span>) + <span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">		T[<span class="built_in">strlen</span>(T+<span class="number">1</span>) + <span class="number">1</span>] = <span class="string">'a'</span><span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">int</span> p1=<span class="number">-1</span>,p2=<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">int</span> u = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;T[i] &amp;&amp; u;i++)&#123;</span><br><span class="line">			<span class="keyword">int</span> t = query(root[u],<span class="number">1</span>,n,l+i<span class="number">-1</span>,r),tmp = T[i] - <span class="string">'a'</span> + <span class="number">1</span>;</span><br><span class="line">			rep(j,tmp,<span class="number">26</span>) <span class="keyword">if</span> (t &gt;&gt; j &amp; <span class="number">1</span>)&#123;</span><br><span class="line">				p1 = i,p2 = j;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(T[i] &gt;= <span class="string">'a'</span>) u = sam.T[u].nxt[T[i]-<span class="string">'a'</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(p1==<span class="number">-1</span>)&#123;</span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">			rep(i,<span class="number">1</span>,p1)pc(T[i]);pc(<span class="string">'a'</span>+p2);<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+          
+            <a href="/tags/字符串/" rel="tag"># 字符串</a>
+          
+            <a href="/tags/后缀自动机/" rel="tag"># 后缀自动机</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/22/hihoCoder1252 Kejin Game/hihoCoder1252 Kejin Game/" rel="next" title="hihoCoder1252 Kejin Game">
+                <i class="fa fa-chevron-left"></i> hihoCoder1252 Kejin Game
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/22/学习笔记/Simple-convolution-notes/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/zhouzhendong/" title="ZZD___Orz" target="_blank">ZZD___Orz</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/chunlvxiong/" title="CLJ___Orz" target="_blank">CLJ___Orz</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DAWG"><span class="nav-number">1.1.</span> <span class="nav-text">DAWG</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、字符串的子串。"><span class="nav-number">2.1.</span> <span class="nav-text">1、字符串的子串。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、max和min"><span class="nav-number">2.2.</span> <span class="nav-text">2、max和min</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、-right-集合-endpos"><span class="nav-number">2.3.</span> <span class="nav-text">3、$right$集合($endpos$)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、转移边"><span class="nav-number">2.4.</span> <span class="nav-text">4、转移边</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、后缀链接-Suffix-Link-和parents树"><span class="nav-number">2.5.</span> <span class="nav-text">5、后缀链接(Suffix Link)和parents树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举例"><span class="nav-number">3.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造"><span class="nav-number">4.</span> <span class="nav-text">构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">5.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度"><span class="nav-number">6.</span> <span class="nav-text">复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质"><span class="nav-number">7.</span> <span class="nav-text">性质</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#parents树"><span class="nav-number">7.1.</span> <span class="nav-text">parents树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#right集合（endpos"><span class="nav-number">7.2.</span> <span class="nav-text">right集合（endpos)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">8.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#codeforces1037H-Security"><span class="nav-number">8.1.</span> <span class="nav-text">codeforces1037H. Security</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
